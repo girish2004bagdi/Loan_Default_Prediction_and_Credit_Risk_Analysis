@@ -1,203 +1,83 @@
-# 🏦 Loan Default Prediction & Credit Risk Analysis
+# Loan Default Prediction & Credit Risk Analysis
 
-### Machine Learning | Financial Risk Assessment | Predictive Analytics
+A machine-learning project that explores credit-risk data and estimates the probability of loan default from applicant and loan attributes.
 
-A Machine Learning project focused on analyzing credit risk and predicting the likelihood of loan default using applicant financial and demographic information.
+> **Important:** This is an educational demonstration, not financial advice, a credit score, or a production lending decision system. Do not use it to approve or reject real applicants.
 
-The project explores how historical loan data can be used to develop predictive models that support risk assessment and data-driven lending decisions.
+## Project workflow
 
----
+1. Inspect and clean the credit-risk dataset.
+2. Explore target balance, missing values, distributions and relationships.
+3. Engineer `cred_hist_to_age`.
+4. Split data into stratified training and test sets.
+5. Impute missing values and encode categorical variables inside a preprocessing pipeline.
+6. Train a Random Forest classifier with class weighting.
+7. Evaluate on a held-out test set using accuracy, precision, recall, F1 and ROC-AUC.
+8. Save the complete preprocessing + model pipeline as `model.pkl`.
+9. Run an interactive Streamlit interface.
 
-## 🎯 Project Overview
+The original notebook also documents Logistic Regression vs Random Forest, cross-validation, RandomizedSearchCV, feature importance and threshold analysis. Re-run the notebook to reproduce its analysis and results.
 
-Loan defaults create financial risks for banks and lending institutions. Identifying applicants who may have difficulty repaying loans can help institutions make more informed lending decisions.
-
-This project explores a binary classification approach to loan default prediction using a credit risk dataset.
-
-**Main Objective:** Analyze applicant information and estimate the probability of loan default using Machine Learning.
-
----
-
-## 🔍 Key Project Areas
-
-| Area | Description |
-|---|---|
-| Data Understanding | Explore dataset structure and variables |
-| Data Preprocessing | Prepare data for machine learning |
-| Exploratory Data Analysis | Investigate patterns and relationships |
-| Feature Engineering | Prepare relevant predictive features |
-| Model Development | Develop a classification model |
-| Model Evaluation | Evaluate predictive performance |
-| Prediction Application | Provide an interactive prediction interface |
-
-*The exact algorithms and evaluation results will be documented after verification of the notebook.*
-
----
-
-## 📂 Project Structure
+## Files
 
 ```text
-loan-default-prediction/
-│
-├── data/
-│   └── credit_risk_dataset.csv
-│
-├── notebooks/
-│   └── loan_default_prediction.ipynb
-│
-├── models/
-│   └── model.pkl
-│
-├── app/
-│   └── app.py
-│
-├── README.md
+.
+├── credit_risk_dataset.csv
+├── Loan_Default_Prediction (1).ipynb
+├── train_model.py
+├── app.py
 ├── requirements.txt
-└── .gitignore
+├── .gitignore
+└── model.pkl                 # generated locally by train_model.py
 ```
 
----
+## Setup (Windows)
 
-## 📊 Dataset Information
-
-**Dataset:** Credit Risk Dataset
-
-The dataset contains applicant-related information used for credit risk analysis.
-
-Features used by the current prediction application include:
-
-- Applicant age
-- Annual income
-- Home ownership
-- Employment length
-- Loan intent
-- Loan grade
-- Loan amount
-- Interest rate
-- Previous default history
-- Credit history length
-
-**Target Variable:** `loan_status`
-
-The prediction task is to estimate the likelihood of a loan default.
-
----
-
-## 🧰 Technology Stack
-
-| Category | Technologies |
-|---|---|
-| Programming | Python |
-| Data Processing | Pandas, NumPy |
-| Machine Learning | Scikit-learn (verify notebook implementation) |
-| Visualization | Matplotlib, Seaborn (verify notebook implementation) |
-| Application | Streamlit |
-| Model Loading | Joblib |
-| Development | Jupyter Notebook, Git, GitHub |
-
----
-
-## 🖥️ Interactive Prediction Application
-
-The project includes a Streamlit application designed to collect applicant information and display a predicted default probability.
-
-The interface includes:
-
-- Applicant information inputs
-- Financial and employment details
-- Loan characteristics
-- Credit history information
-- Default probability output
-- Risk classification display
-
----
-
-## ⚙️ Installation & Setup
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/girish2004bagdi/loan-default-prediction.git
-
-cd loan-default-prediction
-```
-
-### 2. Create a virtual environment
-
-```bash
-python -m venv venv
-```
-
-Activate on Windows:
-
-```bash
-venv\Scripts\activate
-```
-
-### 3. Install dependencies
-
-```bash
+```powershell
+python -m venv .venv
+.venv\Scripts\activate
+python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### 4. Run the Jupyter Notebook
+Keep `credit_risk_dataset.csv` in the same folder as `train_model.py`, then train and save the model:
 
-```bash
-jupyter notebook
+```powershell
+python train_model.py
 ```
 
-Open the notebook inside the `notebooks` folder.
+The script prints held-out test metrics and creates `model.pkl`.
 
-### 5. Run the Streamlit application
+Launch the app:
 
-```bash
-streamlit run app/app.py
+```powershell
+streamlit run app.py
 ```
 
-**Note:** The trained model file must be generated and saved at the expected location before running the application.
+## Dataset
 
----
+The supplied CSV uses `loan_status` as the target:
 
-## 📈 Model Evaluation
+- `0`: no default recorded
+- `1`: default recorded
 
-Model evaluation is an important part of this project.
+The notebook documents the dataset columns and exploratory analysis. Check the dataset's original source and license before redistributing it.
 
-The final documentation will include verified evaluation results such as:
+## Model and evaluation
 
-- Accuracy
-- Precision
-- Recall
-- F1-score
-- Confusion Matrix
-- ROC-AUC (if calculated)
+`train_model.py` fits a preprocessing + Random Forest pipeline. Numeric missing values are median-imputed; categorical missing values are mode-imputed and categories are one-hot encoded. The test split is stratified and uses `random_state=42`.
 
-The evaluation will help understand how effectively the model identifies potential loan defaults.
+Metrics are printed when training runs. They are intentionally not hard-coded here because results must be reproduced in the target environment.
 
----
+## Limitations
 
-## 🔮 Future Improvements
+- Dataset patterns may not represent current applicants or all lending populations.
+- A probability estimate is not a guarantee of future repayment behavior.
+- The 0.50 classification threshold is a demonstration choice, not a calibrated business policy.
+- Fairness, explainability, drift, privacy, security and external validation would be required before any real-world use.
 
-- Compare multiple classification algorithms.
-- Improve feature engineering.
-- Investigate class imbalance.
-- Perform hyperparameter optimization.
-- Improve model interpretability.
-- Enhance the Streamlit interface.
-- Deploy the prediction application.
+## Author
 
----
+**Girish Bagdi** — B.Tech Data Science student
 
-## 👨‍💻 Author
-
-**Girish Bagdi**
-
-B.Tech Data Science Student | Aspiring Data Scientist
-
-- GitHub: [@girish2004bagdi](https://github.com/girish2004bagdi)
-- Project: [Loan Default Prediction](https://github.com/girish2004bagdi/loan-default-prediction)
-
----
-
-⭐ If you find this project interesting, feel free to explore the repository and share your feedback.
-
-*Built as a hands-on Machine Learning and Data Science project.*
+[GitHub profile](https://github.com/girish2004bagdi)
