@@ -1,83 +1,108 @@
-# Loan Default Prediction & Credit Risk Analysis
+# 🏦 Loan Default Prediction & Credit Risk Analysis
 
-A machine-learning project that explores credit-risk data and estimates the probability of loan default from applicant and loan attributes.
+### Machine Learning | Python | Scikit-learn | Random Forest | Streamlit
 
-> **Important:** This is an educational demonstration, not financial advice, a credit score, or a production lending decision system. Do not use it to approve or reject real applicants.
+A Machine Learning project that predicts the probability of loan default using applicant financial information, employment details, loan characteristics, and credit history.
 
-## Project workflow
+The project focuses on understanding credit risk, identifying potential loan defaults, evaluating classification performance, and presenting predictions through an interactive Streamlit application.
 
-1. Inspect and clean the credit-risk dataset.
-2. Explore target balance, missing values, distributions and relationships.
-3. Engineer `cred_hist_to_age`.
-4. Split data into stratified training and test sets.
-5. Impute missing values and encode categorical variables inside a preprocessing pipeline.
-6. Train a Random Forest classifier with class weighting.
-7. Evaluate on a held-out test set using accuracy, precision, recall, F1 and ROC-AUC.
-8. Save the complete preprocessing + model pipeline as `model.pkl`.
-9. Run an interactive Streamlit interface.
+---
 
-The original notebook also documents Logistic Regression vs Random Forest, cross-validation, RandomizedSearchCV, feature importance and threshold analysis. Re-run the notebook to reproduce its analysis and results.
+## 📌 Table of Contents
 
-## Files
+- [Project Overview](#-project-overview)
+- [Business Problem](#-business-problem)
+- [Project Objectives](#-project-objectives)
+- [Dataset Description](#-dataset-description)
+- [Exploratory Data Analysis](#-exploratory-data-analysis)
+- [Data Cleaning and Preprocessing](#-data-cleaning-and-preprocessing)
+- [Feature Engineering](#-feature-engineering)
+- [Machine Learning Workflow](#-machine-learning-workflow)
+- [Model Performance](#-model-performance)
+- [Model Evaluation Visualizations](#-model-evaluation-visualizations)
+- [Feature Importance](#-feature-importance)
+- [Streamlit Application](#-streamlit-application)
+- [Technologies Used](#-technologies-used)
+- [Project Structure](#-project-structure)
+- [Installation and Setup](#-installation-and-setup)
+- [How to Run](#-how-to-run)
+- [Key Findings](#-key-findings)
+- [Limitations](#-limitations)
+- [Future Improvements](#-future-improvements)
+- [Author](#-author)
 
-```text
-.
-├── credit_risk_dataset.csv
-├── Loan_Default_Prediction (1).ipynb
-├── train_model.py
-├── app.py
-├── requirements.txt
-├── .gitignore
-└── model.pkl                 # generated locally by train_model.py
-```
+---
 
-## Setup (Windows)
+## 📖 Project Overview
 
-```powershell
-python -m venv .venv
-.venv\Scripts\activate
-python -m pip install --upgrade pip
-pip install -r requirements.txt
-```
+Loan Default Prediction is a supervised Machine Learning classification problem.
 
-Keep `credit_risk_dataset.csv` in the same folder as `train_model.py`, then train and save the model:
+Financial institutions face the challenge of identifying borrowers who may fail to repay their loans. Incorrect lending decisions can result in financial losses, while rejecting creditworthy applicants can reduce business opportunities.
 
-```powershell
-python train_model.py
-```
+This project uses historical loan applicant data to train a Random Forest classification model that estimates the probability of loan default.
 
-The script prints held-out test metrics and creates `model.pkl`.
+The trained model is integrated into a Streamlit application where users can enter applicant information and receive a predicted default probability.
 
-Launch the app:
+### Project Highlights
 
-```powershell
-streamlit run app.py
-```
+- Data cleaning and preprocessing
+- Exploratory Data Analysis (EDA)
+- Feature engineering
+- Supervised Machine Learning
+- Random Forest classification
+- Model evaluation using multiple metrics
+- Confusion Matrix and ROC Curve
+- Precision-Recall Curve
+- Feature importance analysis
+- Interactive Streamlit application
 
-## Dataset
+---
 
-The supplied CSV uses `loan_status` as the target:
+## 🎯 Business Problem
 
-- `0`: no default recorded
-- `1`: default recorded
+The main business problem is:
 
-The notebook documents the dataset columns and exploratory analysis. Check the dataset's original source and license before redistributing it.
+**How can historical loan applicant data be used to identify applicants who may have a higher probability of defaulting on their loans?**
 
-## Model and evaluation
+The objective is to develop a classification model that learns patterns from historical applicant records and estimates default risk for new applicants.
 
-`train_model.py` fits a preprocessing + Random Forest pipeline. Numeric missing values are median-imputed; categorical missing values are mode-imputed and categories are one-hot encoded. The test split is stratified and uses `random_state=42`.
+### Why Is Credit Risk Analysis Important?
 
-Metrics are printed when training runs. They are intentionally not hard-coded here because results must be reproduced in the target environment.
+- Helps identify potentially high-risk borrowers.
+- Supports data-driven credit risk assessment.
+- Helps financial institutions understand borrower characteristics.
+- Reduces dependency on manual assessment alone.
+- Provides insights into factors associated with loan defaults.
 
-## Limitations
+---
 
-- Dataset patterns may not represent current applicants or all lending populations.
-- A probability estimate is not a guarantee of future repayment behavior.
-- The 0.50 classification threshold is a demonstration choice, not a calibrated business policy.
-- Fairness, explainability, drift, privacy, security and external validation would be required before any real-world use.
+## 🎯 Project Objectives
 
-## Author
+1. Analyze historical loan applicant data.
+2. Understand the distribution of loan defaults.
+3. Clean and preprocess the dataset.
+4. Create meaningful features for model training.
+5. Develop a Machine Learning classification model.
+6. Evaluate the model using appropriate classification metrics.
+7. Visualize model performance.
+8. Build an interactive application for predictions.
 
-**Girish Bagdi** — B.Tech Data Science student
+---
 
-[GitHub profile](https://github.com/girish2004bagdi)
+## 📊 Dataset Description
+
+The project uses a credit risk dataset containing **32,581 original records and 12 columns**.
+
+After data cleaning, the dataset contains 32,409 records and 13 columns, including the engineered feature.
+
+### Dataset Features
+
+| Feature | Description |
+|---|---|
+| `person_age` | Age of the applicant |
+| `person_income` | Annual income of the applicant |
+| `person_home_ownership` | Home ownership status |
+| `person_emp_length` | Employment length in years |
+| `loan_intent` | Purpose of the loan |
+| `loan_grade` | Assigned loan grade |
+| `loan_amnt

@@ -1,0 +1,11 @@
+
+# Python environment
+venv/
+__pycache__/
+*.pyc
+
+# Trained model (large file)
+model.pkl
+
+# Local environment
+.env
